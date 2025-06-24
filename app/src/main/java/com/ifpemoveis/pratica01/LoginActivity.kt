@@ -86,6 +86,20 @@ fun LoginPage(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = modifier.fillMaxWidth(0.9f)
         ) {
+
+            Button(
+                onClick = {
+                    activity?.startActivity(
+                        Intent(activity, RegisterActivity::class.java).setFlags(
+                            FLAG_ACTIVITY_SINGLE_TOP
+                        )
+                    )
+                }
+
+            ) {
+                Text("Registrar-se")
+            }
+
             Button(
                 onClick = {
                     activity?.startActivity(
@@ -100,6 +114,7 @@ fun LoginPage(modifier: Modifier = Modifier) {
             ) {
                 Text("Login")
             }
+
             Button(
                 onClick = { email = ""; password = "" },
                 modifier = Modifier.weight(1f)
