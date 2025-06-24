@@ -16,6 +16,8 @@ import com.ifpemoveis.pratica01.ui.theme.Pratica01_Theme
 
 
 import android.app.Activity
+import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -38,10 +40,7 @@ class LoginActivity : ComponentActivity() {
             Pratica01_Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     LoginPage(modifier = Modifier.padding(innerPadding))
-//                    Greeting2(
-//                        name = "Android",
-//                        modifier = Modifier.padding(innerPadding)
-//                    )
+
                 }
             }
         }
@@ -89,7 +88,11 @@ fun LoginPage(modifier: Modifier = Modifier) {
         ) {
             Button(
                 onClick = {
-                    Toast.makeText(activity, "Login OK!", Toast.LENGTH_LONG).show()
+                    activity?.startActivity(
+                        Intent(activity, MainActivity::class.java).setFlags(
+                            FLAG_ACTIVITY_SINGLE_TOP
+                        )
+                    )
                 },
                 enabled = email.isNotEmpty() && password.isNotEmpty(),
                 modifier = Modifier.weight(1f)
