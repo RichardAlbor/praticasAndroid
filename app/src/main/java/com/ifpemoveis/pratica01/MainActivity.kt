@@ -17,14 +17,20 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.ifpemoveis.pratica01.ui.CityDialog
 import com.ifpemoveis.pratica01.ui.nav.BottomNavBar
 import com.ifpemoveis.pratica01.ui.nav.BottomNavItem
 import com.ifpemoveis.pratica01.ui.nav.MainNavHost
 import com.ifpemoveis.pratica01.ui.theme.Pratica01_Theme
 import com.ifpemoveis.pratica01.ui.main.MainViewModel
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,10 +42,20 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val mainViewModel: MainViewModel = viewModel()
+            var showDialog by remember { mutableStateOf(false) }
 
             val navController = rememberNavController()
             Pratica01_Theme {
-                val mainViewModel: MainViewModel = viewModel()
+
+
+                if (showDialog) CityDialog(
+                    onDismiss = { showDialog = false },
+                    onConfirm = { city ->
+                        if (city.isNotBlank()) mainViewModel.add(city)
+                        showDialog = false
+                    })
+
                 Scaffold(
                     topBar = {
                         TopAppBar(
@@ -64,7 +80,7 @@ class MainActivity : ComponentActivity() {
                         BottomNavBar(navController = navController, items)
                     },
                     floatingActionButton = {
-                        FloatingActionButton(onClick = { }) {
+                        FloatingActionButton(onClick = {  showDialog = true }) {
                             Icon(Icons.Default.Add, contentDescription = "Adicionar")
                         }
                     }
