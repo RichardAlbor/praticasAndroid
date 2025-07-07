@@ -13,10 +13,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-
+import com.ifpemoveis.pratica01.ui.main.MainViewModel
 @Preview(showBackground = true)
 @Composable
-fun MapPage() {
+fun MapPage(viewModel : MainViewModel = MainViewModel()) {
+    val cityList = viewModel.cities
     Column(
         modifier = Modifier.fillMaxSize()
             .background(Color.Gray)

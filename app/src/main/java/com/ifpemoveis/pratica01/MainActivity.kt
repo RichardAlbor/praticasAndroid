@@ -18,23 +18,28 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.ifpemoveis.pratica01.ui.nav.BottomNavBar
 import com.ifpemoveis.pratica01.ui.nav.BottomNavItem
 import com.ifpemoveis.pratica01.ui.nav.MainNavHost
 import com.ifpemoveis.pratica01.ui.theme.Pratica01_Theme
+import com.ifpemoveis.pratica01.ui.main.MainViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+
             val navController = rememberNavController()
             Pratica01_Theme {
+                val mainViewModel: MainViewModel = viewModel()
                 Scaffold(
                     topBar = {
                         TopAppBar(
@@ -65,7 +70,7 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
-                        MainNavHost(navController = navController)
+                        MainNavHost(navController = navController, viewModel = mainViewModel)
                     }
                 }
             }

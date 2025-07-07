@@ -32,16 +32,20 @@ import androidx.compose.material3.IconButton
 import androidx.compose.ui.unit.dp
 import com.ifpemoveis.pratica01.model.City
 import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.platform.LocalContext
+import com.ifpemoveis.pratica01.ui.main.MainViewModel
+import androidx.compose.runtime.getValue
 
 
 @Preview(showBackground = true)
 @Composable
-fun ListPage(modifier: Modifier = Modifier) {
+fun ListPage(viewModel: MainViewModel = MainViewModel()) {
+    val modifier =  Modifier
     val context = LocalContext.current
-    val cityList = remember { getCities().toMutableStateList() }
+    val cityList by viewModel.cities.collectAsState()
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -49,6 +53,7 @@ fun ListPage(modifier: Modifier = Modifier) {
     ) {
         items(cityList, key = { it.name }) { city ->
             CityItem(city = city, onClose = {
+                viewModel.remove(city)
                 Toast.makeText(context, "Fechando ${city.name}", Toast.LENGTH_SHORT).show()
             }, onClick = {
                 Toast.makeText(context, "Você clicou em ${city.name}", Toast.LENGTH_SHORT).show()
@@ -87,7 +92,4 @@ fun CityItem(
             Icon(Icons.Filled.Close, contentDescription = "Close")
         }
     }
-}
-private fun getCities() = List(20) { i ->
-    City(name = "Cidade $i", weather = "Carregando clima...")
 }
