@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 
-//teste commit
+
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
