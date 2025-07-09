@@ -14,15 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pratica01_"
         tools:targetApi="31">
+
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="@string/google_maps_key"/>
+<!--        <meta-data-->
+<!--            android:name="com.google.android.geo.API_KEY"-->
+<!--            android:value="${MAPS_API_KEY}" />-->
 
-        <activity
-            android:name=".ui.ComposableListPage"
-            android:exported="false"
-            android:label="@string/title_activity_composable_list_page"
-            android:theme="@style/Theme.Pratica01_" />
+
         <activity
             android:name=".RegisterActivity"
             android:exported="false"
