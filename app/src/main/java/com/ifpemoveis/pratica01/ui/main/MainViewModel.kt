@@ -2,6 +2,7 @@ package com.ifpemoveis.pratica01.ui.main
 
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.maps.model.LatLng
 import com.ifpemoveis.pratica01.model.City
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -9,16 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 
 class MainViewModel : ViewModel() {
 
-//    private val _cities = getCities().toMutableStateList()
-//    val cities
-//        get() = _cities.toList()
-//    fun remove(city: City) {
-//        _cities.remove(city)
-//    }
 
-//    fun add(name: String) {
-//        _cities.add(City(name = name))
-//    }
 
 
     private val _cities = MutableStateFlow(getCities())
@@ -26,11 +18,13 @@ class MainViewModel : ViewModel() {
 
 
 
-    fun add(name: String) {
+    fun add(name: String, location: LatLng? = null) {
         val currentList = _cities.value.toMutableList()
-        currentList.add(City(name = name, weather = "Desconhecido")) // Adicione um valor padrão para weather
-        _cities.value = currentList.toList()
+        currentList.add(City(name = name, location = location))
+        _cities.value = currentList
     }
+
+
 
     fun remove(city: City) {
         // Crie uma nova lista para atualizar o StateFlow, garantindo que o Compose veja a mudança de referência
@@ -50,9 +44,4 @@ private fun getCities(): List<City> {
     }
 }
 
-private fun generateInitialCities(): List<City> { // Mudei para privada interna na VM
-    return List(20) { i ->
-        City(name = "Cidade ${i + 1}") // Exemplo de clima inicial
-    }
-}
 

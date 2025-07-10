@@ -18,11 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.android.gms.maps.model.LatLng;
+
 
 data class City(
     val name : String,
     val weather: String? = null,
-    val location: String? = null
+    val location: LatLng? = null
 ){
 
 
