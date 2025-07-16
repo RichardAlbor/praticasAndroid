@@ -1,4 +1,4 @@
-package com.ifpemoveis.pratica01.model
+package com.ifpemoveis.weatherapp.model
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package com.ifpemoveis.pratica01.ui.nav
+package com.ifpemoveis.weatherapp.ui.nav
 
 // Para o sealed interface e sealed class
 import kotlinx.serialization.Serializable
@@ -11,7 +11,6 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
 
 // Para navegação com Compose (caso esteja usando routes como nomes de tela)
-import androidx.navigation.NavController
 
 
 sealed interface Route {

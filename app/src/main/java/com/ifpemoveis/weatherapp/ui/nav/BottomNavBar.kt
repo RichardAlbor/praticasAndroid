@@ -1,7 +1,6 @@
-package com.ifpemoveis.pratica01.ui.nav
+package com.ifpemoveis.weatherapp.ui.nav
 
 // Anotação @Preview para visualizar o Composable no Android Studio
-import androidx.compose.ui.tooling.preview.Preview
 
 // Para Composable functions
 import androidx.compose.runtime.Composable
@@ -17,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.Icon
 
 // Para ImageVector
-import androidx.compose.ui.graphics.vector.ImageVector
 
 // Para Color
 import androidx.compose.ui.graphics.Color
@@ -28,7 +26,6 @@ import androidx.compose.ui.unit.sp
 // Para NavController e navegação Compose
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import androidx.compose.runtime.getValue
 
 

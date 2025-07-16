@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace = "com.ifpemoveis.pratica01"
+    namespace = "com.ifpemoveis.weatherapp"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.ifpemoveis.pratica01"
+        applicationId = "com.ifpemoveis.weatherapp"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

@@ -1,9 +1,8 @@
-package com.ifpemoveis.pratica01.ui.main
+package com.ifpemoveis.weatherapp.ui.main
 
-import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
-import com.ifpemoveis.pratica01.model.City
+import com.ifpemoveis.weatherapp.model.City
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 

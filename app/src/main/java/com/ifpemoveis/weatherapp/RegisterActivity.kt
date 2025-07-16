@@ -1,8 +1,7 @@
-package com.ifpemoveis.pratica01
+package com.ifpemoveis.weatherapp
 
 import android.app.Activity
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -30,14 +29,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.ifpemoveis.pratica01.ui.theme.Pratica01_Theme
+import com.ifpemoveis.weatherapp.ui.theme.Pratica01_Theme
 
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
 
 
 class RegisterActivity : ComponentActivity() {

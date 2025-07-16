@@ -1,4 +1,4 @@
-package com.ifpemoveis.pratica01
+package com.ifpemoveis.weatherapp
 
 import org.junit.Test
 

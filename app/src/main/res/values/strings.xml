@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">pratica01_</string>
+    <string name="app_name">WeatherApp</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_composable_list_page">ComposableListPage</string>

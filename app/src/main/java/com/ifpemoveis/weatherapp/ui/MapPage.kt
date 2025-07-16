@@ -1,4 +1,4 @@
-package com.ifpemoveis.pratica01.ui
+package com.ifpemoveis.weatherapp.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,18 +23,22 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.rememberCameraPositionState
 
 
+import com.ifpemoveis.weatherapp.ui.main.MainViewModel
+import kotlinx.coroutines.flow.forEach
 
-import com.ifpemoveis.pratica01.ui.main.MainViewModel
-
-//@Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
 fun MapPage(viewModel : MainViewModel = MainViewModel()) {
+    val modifier = Modifier
     val cityList = viewModel.cities
     val recife = LatLng(-8.05, -34.9)
     val caruaru = LatLng(-8.27, -35.98)
     val joaopessoa = LatLng(-7.12, -34.84)
+    val camPosState = rememberCameraPositionState ()
+
 
 
     Column(
@@ -48,7 +54,22 @@ fun MapPage(viewModel : MainViewModel = MainViewModel()) {
             textAlign = TextAlign.Center,
             fontSize = 20.sp
         )
-        GoogleMap() {
+
+        GoogleMap(modifier = modifier.fillMaxSize(), onMapClick = {
+            viewModel.add("Cidade@${it.latitude}:${it.longitude}", location = it) },
+            cameraPositionState = camPosState
+
+        ) {
+
+            val cityList by viewModel.cities.collectAsState()
+            cityList.forEach {
+                if (it.location != null) {
+                    Marker( state = MarkerState(position = it.location),
+                        title = it.name, snippet = "${it.location}")
+                }
+            }
+
+
             Marker(
                 state = MarkerState(position = recife),
                 title = "Recife",

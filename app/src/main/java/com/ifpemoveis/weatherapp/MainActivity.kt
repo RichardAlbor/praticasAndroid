@@ -1,11 +1,10 @@
-package com.ifpemoveis.pratica01
+package com.ifpemoveis.weatherapp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
@@ -21,12 +20,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.ifpemoveis.pratica01.ui.CityDialog
-import com.ifpemoveis.pratica01.ui.nav.BottomNavBar
-import com.ifpemoveis.pratica01.ui.nav.BottomNavItem
-import com.ifpemoveis.pratica01.ui.nav.MainNavHost
-import com.ifpemoveis.pratica01.ui.theme.Pratica01_Theme
-import com.ifpemoveis.pratica01.ui.main.MainViewModel
+import com.ifpemoveis.weatherapp.ui.CityDialog
+import com.ifpemoveis.weatherapp.ui.nav.BottomNavBar
+import com.ifpemoveis.weatherapp.ui.nav.BottomNavItem
+import com.ifpemoveis.weatherapp.ui.nav.MainNavHost
+import com.ifpemoveis.weatherapp.ui.theme.Pratica01_Theme
+import com.ifpemoveis.weatherapp.ui.main.MainViewModel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,7 +37,7 @@ import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 
-import com.ifpemoveis.pratica01.ui.nav.Route
+import com.ifpemoveis.weatherapp.ui.nav.Route
 
 
 @OptIn(ExperimentalMaterial3Api::class)

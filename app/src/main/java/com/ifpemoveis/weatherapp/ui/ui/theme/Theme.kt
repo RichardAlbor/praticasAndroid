@@ -1,6 +1,5 @@
-package com.ifpemoveis.pratica01.ui.ui.theme
+package com.ifpemoveis.weatherapp.ui.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

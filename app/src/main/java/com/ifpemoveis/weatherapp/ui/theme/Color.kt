@@ -1,4 +1,4 @@
-package com.ifpemoveis.pratica01.ui.theme
+package com.ifpemoveis.weatherapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
