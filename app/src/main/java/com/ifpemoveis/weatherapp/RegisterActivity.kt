@@ -33,6 +33,8 @@ import com.ifpemoveis.weatherapp.ui.theme.Pratica01_Theme
 
 
 import android.widget.Toast
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 
 class RegisterActivity : ComponentActivity() {
@@ -110,19 +112,20 @@ fun RegisterPage(modifier: Modifier = Modifier) {
         ) {
             Button(
                 onClick = {
-                    Toast.makeText(activity, "Registro Realizado com Sucesso!", Toast.LENGTH_LONG).show()
+
+                    Firebase.auth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(activity!!) { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(activity,
+                                    "Registro OK!", Toast.LENGTH_LONG).show()
+                                activity.finish()
+                            } else {
+                                Toast.makeText(activity,
+                                    "Registro FALHOU!", Toast.LENGTH_LONG).show()
+                            }
+                        }
 
 
-
-                    val intent = Intent(activity, LoginActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    activity?.startActivity(intent)
-                    activity?.finish()
-//                    activity?.startActivity(
-//                        Intent(activity, MainActivity::class.java).setFlags(
-//                            FLAG_ACTIVITY_SINGLE_TOP
-//                        )
-//                    )
                 },
                 enabled = nome.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && password.equals(repeatPassword),
                 modifier = Modifier.weight(1f)

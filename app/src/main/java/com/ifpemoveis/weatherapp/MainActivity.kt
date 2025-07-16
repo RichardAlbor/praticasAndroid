@@ -36,6 +36,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 import com.ifpemoveis.weatherapp.ui.nav.Route
 
@@ -81,7 +83,10 @@ class MainActivity : ComponentActivity() {
                         TopAppBar(
                             title = { Text("Bem-vindo/a!") },
                             actions = {
-                                IconButton( onClick = { finish() } ) {
+                                IconButton( onClick = {
+                                    Firebase.auth.signOut()
+                                    finish()
+                                } ) {
                                     Icon(
                                         imageVector =
                                             Icons.AutoMirrored.Filled.ExitToApp,
