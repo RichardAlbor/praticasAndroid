@@ -85,7 +85,6 @@ class MainActivity : ComponentActivity() {
                             actions = {
                                 IconButton( onClick = {
                                     Firebase.auth.signOut()
-                                    finish()
                                 } ) {
                                     Icon(
                                         imageVector =
