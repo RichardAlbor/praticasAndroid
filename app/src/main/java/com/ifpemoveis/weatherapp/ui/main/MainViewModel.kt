@@ -15,8 +15,6 @@ class MainViewModel : ViewModel() {
     private val _cities = MutableStateFlow(getCities())
     val cities = _cities.asStateFlow()
 
-
-
     fun add(name: String, location: LatLng? = null) {
         val currentList = _cities.value.toMutableList()
         currentList.add(City(name = name, location = location))
