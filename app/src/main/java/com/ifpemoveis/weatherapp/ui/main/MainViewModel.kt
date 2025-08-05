@@ -1,19 +1,25 @@
 package com.ifpemoveis.weatherapp.ui.main
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.ifpemoveis.weatherapp.model.City
+import com.ifpemoveis.weatherapp.model.User
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 
 class MainViewModel : ViewModel() {
 
-
+    private val _user = mutableStateOf<User?> (null)
+    val user : User?
+        get() = _user.value
 
 
     private val _cities = MutableStateFlow(getCities())
     val cities = _cities.asStateFlow()
+
+
 
     fun add(name: String, location: LatLng? = null) {
         val currentList = _cities.value.toMutableList()
