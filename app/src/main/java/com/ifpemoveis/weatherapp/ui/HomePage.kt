@@ -17,7 +17,7 @@ import com.ifpemoveis.weatherapp.ui.main.MainViewModel
 
 @Preview(showBackground = true)
 @Composable
-fun HomePage(viewModel: MainViewModel = MainViewModel()) {
+fun HomePage(viewModel: MainViewModel) {
     val cityList = viewModel.cities
     Column(
         modifier = Modifier.fillMaxSize()

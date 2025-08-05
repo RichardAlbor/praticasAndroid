@@ -39,7 +39,7 @@ import com.ifpemoveis.weatherapp.ui.main.MainViewModel
 
 @Preview(showBackground = true)
 @Composable
-fun MapPage(viewModel : MainViewModel = MainViewModel()) {
+fun MapPage(viewModel: MainViewModel) {
     val modifier = Modifier
     val cityList = viewModel.cities
     val recife = LatLng(-8.05, -34.9)
@@ -80,7 +80,6 @@ fun MapPage(viewModel : MainViewModel = MainViewModel()) {
 
         ) {
 
-            val cityList by viewModel.cities.collectAsState()
             cityList.forEach {
                 if (it.location != null) {
                     Marker( state = MarkerState(position = it.location),

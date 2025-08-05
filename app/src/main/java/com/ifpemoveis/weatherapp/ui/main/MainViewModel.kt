@@ -1,44 +1,77 @@
 package com.ifpemoveis.weatherapp.ui.main
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.model.LatLng
+import com.ifpemoveis.weatherapp.db.fb.FBCity
+import com.ifpemoveis.weatherapp.db.fb.FBDatabase
+import com.ifpemoveis.weatherapp.db.fb.FBUser
+import com.ifpemoveis.weatherapp.db.fb.toFBCity
 import com.ifpemoveis.weatherapp.model.City
 import com.ifpemoveis.weatherapp.model.User
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 
-class MainViewModel : ViewModel() {
-
-    private val _user = mutableStateOf<User?> (null)
-    val user : User?
-        get() = _user.value
-
-
-    private val _cities = MutableStateFlow(getCities())
-    val cities = _cities.asStateFlow()
-
-
-
-    fun add(name: String, location: LatLng? = null) {
-        val currentList = _cities.value.toMutableList()
-        currentList.add(City(name = name, location = location))
-        _cities.value = currentList
+class MainViewModel(private val db: FBDatabase) : ViewModel(),
+    FBDatabase.Listener {
+        private val _cities = mutableStateListOf<City>()
+        val cities
+            get() = _cities.toList()
+        private val _user = mutableStateOf<User?> (null)
+        val user : User?
+            get() = _user.value
+        init {
+            db.setListener(this)
+        }
+        fun remove(city: City) {
+            db.remove(city.toFBCity())
+        }
+        fun add(name: String, location : LatLng? = null) {
+            db.add(City(name = name, location = location).toFBCity())
+        }
+        override fun onUserLoaded(user: FBUser) {
+            _user.value = user.toUser()
+        }
+        override fun onUserSignOut() {
+            //TODO("Not yet implemented")
+        }
+        override fun onCityAdded(city: FBCity) {
+            _cities.add(city.toCity())
+        }
+        override fun onCityUpdated(city: FBCity) {
+            //TODO("Not yet implemented")
+        }
+        override fun onCityRemoved(city: FBCity) {
+            _cities.remove(city.toCity())
+        }
     }
 
-
-
-    fun remove(city: City) {
-        // Crie uma nova lista para atualizar o StateFlow, garantindo que o Compose veja a mudança de referência
-        val currentList = _cities.value.toMutableList()
-        currentList.remove(city)
-        _cities.value = currentList.toList() // Emita a nova lista para o StateFlow
-    }
-
-
-
-}
+//    private val _user = mutableStateOf<User?> (null)
+//    val user : User?
+//        get() = _user.value
+//    private val _cities = MutableStateFlow(getCities())
+//    val cities = _cities.asStateFlow()
+//
+//
+//
+//    fun add(name: String, location: LatLng? = null) {
+//        val currentList = _cities.value.toMutableList()
+//        currentList.add(City(name = name, location = location))
+//        _cities.value = currentList
+//    }
+//
+//    fun remove(city: City) {
+//        // Crie uma nova lista para atualizar o StateFlow, garantindo que o Compose veja a mudança de referência
+//        val currentList = _cities.value.toMutableList()
+//        currentList.remove(city)
+//        _cities.value = currentList.toList() // Emita a nova lista para o StateFlow
+//    }
+//
+//
+//}
 
 // Função interna para gerar a lista inicial de cidades
 private fun getCities(): List<City> {
@@ -46,5 +79,18 @@ private fun getCities(): List<City> {
         City(name = "Cidade ${i + 1}")
     }
 }
+
+class MainViewModelFactory(private val db : FBDatabase) :
+    ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+            return MainViewModel(db) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
+
+
 
 

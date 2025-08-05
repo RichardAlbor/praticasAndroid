@@ -1,4 +1,4 @@
-val MAPS_API_KEY: String = project.findProperty("MAPS_API_KEY") as String? ?: ""
+//val MAPS_API_KEY: String = project.findProperty("MAPS_API_KEY") as String? ?: ""
 
 plugins {
     alias(libs.plugins.android.application)
@@ -22,7 +22,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        resValue("string", "google_maps_key", MAPS_API_KEY)
+//        resValue("string", "google_maps_key", MAPS_API_KEY)
     }
 
     buildTypes {

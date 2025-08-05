@@ -1,5 +1,6 @@
 package com.ifpemoveis.weatherapp.ui
 
+import android.app.Activity
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,14 +31,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
 import com.ifpemoveis.weatherapp.ui.main.MainViewModel
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 
 
 @Preview(showBackground = true)
 @Composable
-fun ListPage(viewModel: MainViewModel = MainViewModel()) {
+fun ListPage(viewModel: MainViewModel) {
     val modifier =  Modifier
+
     val context = LocalContext.current
-    val cityList by viewModel.cities.collectAsState()
+    val cityList = viewModel.cities
+
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -53,6 +57,9 @@ fun ListPage(viewModel: MainViewModel = MainViewModel()) {
         }
     }
 }
+
+
+
 
 
 

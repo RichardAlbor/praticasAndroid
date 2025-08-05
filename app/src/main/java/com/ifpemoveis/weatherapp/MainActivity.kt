@@ -38,6 +38,8 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import com.ifpemoveis.weatherapp.db.fb.FBDatabase
+import com.ifpemoveis.weatherapp.ui.main.MainViewModelFactory
 
 import com.ifpemoveis.weatherapp.ui.nav.Route
 
@@ -52,6 +54,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+
+
+            val fbDB = remember { FBDatabase() }
+            val mainViewModel : MainViewModel = viewModel(
+                factory = MainViewModelFactory(fbDB)
+            )
+
+
+
             val navController = rememberNavController()
 
             val currentRoute = navController.currentBackStackEntryAsState()
@@ -64,7 +75,7 @@ class MainActivity : ComponentActivity() {
 
 
 
-            val mainViewModel: MainViewModel = viewModel()
+
             var showDialog by remember { mutableStateOf(false) }
 
 

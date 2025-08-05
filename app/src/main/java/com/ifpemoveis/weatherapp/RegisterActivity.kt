@@ -1,7 +1,6 @@
 package com.ifpemoveis.weatherapp
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -35,6 +34,9 @@ import com.ifpemoveis.weatherapp.ui.theme.Pratica01_Theme
 import android.widget.Toast
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import com.ifpemoveis.weatherapp.db.fb.FBDatabase
+import com.ifpemoveis.weatherapp.db.fb.toFBUser
+import com.ifpemoveis.weatherapp.model.User
 
 
 class RegisterActivity : ComponentActivity() {
@@ -116,6 +118,8 @@ fun RegisterPage(modifier: Modifier = Modifier) {
                     Firebase.auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(activity!!) { task ->
                             if (task.isSuccessful) {
+                                FBDatabase().register(User(nome, email).toFBUser())
+
                                 Toast.makeText(activity,
                                     "Registro OK!", Toast.LENGTH_LONG).show()
 
