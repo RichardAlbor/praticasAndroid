@@ -11,12 +11,29 @@ import com.ifpemoveis.weatherapp.db.fb.FBUser
 import com.ifpemoveis.weatherapp.db.fb.toFBCity
 import com.ifpemoveis.weatherapp.model.City
 import com.ifpemoveis.weatherapp.model.User
+import com.ifpemoveis.weatherapp.api.WeatherService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 
-class MainViewModel(private val db: FBDatabase) : ViewModel(),
+class MainViewModel(private val db: FBDatabase, private val service : WeatherService) : ViewModel(),
     FBDatabase.Listener {
+
+        fun add(name: String) {
+            service.getLocation(name) { lat, lng ->
+                if (lat != null && lng != null) {
+                    db.add(City(name=name, location=LatLng(lat, lng)).toFBCity())
+                }
+            }
+        }
+        fun add(location: LatLng) {
+            service.getName(location.latitude, location.longitude) { name ->
+                if (name != null) {
+                    db.add(City(name = name, location = location).toFBCity())
+                }
+            }
+        }
+
         private val _cities = mutableStateListOf<City>()
         val cities
             get() = _cities.toList()
@@ -49,29 +66,6 @@ class MainViewModel(private val db: FBDatabase) : ViewModel(),
         }
     }
 
-//    private val _user = mutableStateOf<User?> (null)
-//    val user : User?
-//        get() = _user.value
-//    private val _cities = MutableStateFlow(getCities())
-//    val cities = _cities.asStateFlow()
-//
-//
-//
-//    fun add(name: String, location: LatLng? = null) {
-//        val currentList = _cities.value.toMutableList()
-//        currentList.add(City(name = name, location = location))
-//        _cities.value = currentList
-//    }
-//
-//    fun remove(city: City) {
-//        // Crie uma nova lista para atualizar o StateFlow, garantindo que o Compose veja a mudança de referência
-//        val currentList = _cities.value.toMutableList()
-//        currentList.remove(city)
-//        _cities.value = currentList.toList() // Emita a nova lista para o StateFlow
-//    }
-//
-//
-//}
 
 // Função interna para gerar a lista inicial de cidades
 private fun getCities(): List<City> {
@@ -80,11 +74,11 @@ private fun getCities(): List<City> {
     }
 }
 
-class MainViewModelFactory(private val db : FBDatabase) :
+class MainViewModelFactory(private val db : FBDatabase, private val service : WeatherService) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            return MainViewModel(db) as T
+            return MainViewModel(db, service) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

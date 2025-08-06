@@ -1,7 +1,5 @@
 import java.util.Properties
 
-//val MAPS_API_KEY: String = project.findProperty("MAPS_API_KEY") as String? ?: ""
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -24,12 +22,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-//        resValue("string", "google_maps_key", MAPS_API_KEY)
         val keyFile = project.rootProject.file("local.properties")
         val props = Properties()
         props.load(keyFile.inputStream())
         buildConfigField ("String", "WEATHER_API_KEY",
-            props.getProperty("WEATHER_API_KEY"))
+            "\"${props.getProperty("WEATHER_API_KEY")}\""
+        )
 
     }
 

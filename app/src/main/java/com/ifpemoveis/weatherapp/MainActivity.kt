@@ -38,6 +38,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import com.ifpemoveis.weatherapp.api.WeatherService
 import com.ifpemoveis.weatherapp.db.fb.FBDatabase
 import com.ifpemoveis.weatherapp.ui.main.MainViewModelFactory
 
@@ -57,8 +58,9 @@ class MainActivity : ComponentActivity() {
 
 
             val fbDB = remember { FBDatabase() }
+            val weatherService = remember { WeatherService() }
             val mainViewModel : MainViewModel = viewModel(
-                factory = MainViewModelFactory(fbDB)
+                factory = MainViewModelFactory(fbDB, weatherService)
             )
 
 
@@ -73,9 +75,6 @@ class MainActivity : ComponentActivity() {
 
 
 
-
-
-
             var showDialog by remember { mutableStateOf(false) }
 
 
@@ -85,7 +84,7 @@ class MainActivity : ComponentActivity() {
                 if (showDialog) CityDialog(
                     onDismiss = { showDialog = false },
                     onConfirm = { city ->
-                        if (city.isNotBlank()) mainViewModel.add(city)
+                        if (city.isNotBlank()) mainViewModel.add( city)
                         showDialog = false
                     })
 
